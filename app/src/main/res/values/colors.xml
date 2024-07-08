@@ -3,9 +3,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#A3A3A3</color>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="grey2">#8F8F8F</color>
+    <color name="white2">#C6C6C6</color>
+    <color name="grey3">#DDDDDD</color>
+    <color name="grey4">#EDEBEB</color>
+    <color name="grey5">#DAD8D8</color>
+
+
+
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="test">#D9FF00</color>
@@ -14,17 +19,24 @@
     <color name="home">#1194AA</color>
     <color name="like">#C9379D</color>
     <color name="notification">#AE7E0F</color>
-    <color name="profile">#5B37B7</color>
     <color name="grok">#00FFB7</color>
     <color name="message">#871616</color>
 
     <color name="home_20">#331194AA</color>
     <color name="like_20">#33C9379D</color>
     <color name="notification_20">#33AE7E0F</color>
-    <color name="profile_20">#335B37B7</color>
+
     <color name="grok_20">#3300FFB7</color>
     <color name="message_20">#33871616</color>
     <color name="blue">#01AED8</color>
-    <color name="gris">#1EC2D1EC</color>
+    <color name="blue2">#017BD8</color>
+    <color name="gris">#1EC1C1C1</color>
+    <color name="myCustomColor">#000000</color>
+    <color name="myHintColor">#9E9E9E</color>
+    <color name="New">#80000000</color>
+    <color name="New2">#000000</color>
+
+    <color name="black2">#131212</color>
+
 
 </resources>
