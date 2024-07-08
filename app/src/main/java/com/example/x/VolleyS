@@ -1,0 +1,28 @@
+package com.example.foundit
+
+import android.content.Context
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.Volley
+
+class VolleyS private constructor(context: Context) {
+    private val requestQueue: RequestQueue
+
+    init {
+        requestQueue = Volley.newRequestQueue(context)
+    }
+
+    companion object {
+        private var mVolleyS: VolleyS? = null
+
+        fun getInstance(context: Context): VolleyS {
+            if (mVolleyS == null) {
+                mVolleyS = VolleyS(context)
+            }
+            return mVolleyS!!
+        }
+    }
+
+    fun getRequestQueue(): RequestQueue {
+        return requestQueue
+    }
+}
