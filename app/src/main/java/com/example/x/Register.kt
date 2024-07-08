@@ -20,26 +20,13 @@ import java.util.regex.Pattern
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
 
-    private lateinit var txtName: EditText
-    private lateinit var txtEmail: EditText
-    private lateinit var txtPassword: EditText
-    private lateinit var txtConfirmPassword: EditText
-    private lateinit var imageViewPasswordVisibility: ImageView
-    private lateinit var imageViewConfirmPasswordVisibility: ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        txtName = findViewById(R.id.nameET)
-        txtEmail = findViewById(R.id.emailET)
-        txtPassword = findViewById(R.id.passwordET)
-        txtConfirmPassword = findViewById(R.id.cPasswordET)
-        imageViewPasswordVisibility = findViewById(R.id.passwordIcon)
-        imageViewConfirmPasswordVisibility = findViewById(R.id.cPasswordIcon)
-
-        binding.btnRegistrar.setOnClickListener { registrarse() }
+        // Vincula las vistas utilizando binding
+        binding.btnRegistrar.setOnClickListener { validarDatos() }
     }
 
     private fun mainActivity() {
@@ -51,63 +38,67 @@ class Register : AppCompatActivity() {
         startActivity(Intent(this, Login::class.java))
     }
 
-    fun validarDatos(view: View) {
-        val nombre = txtName.text.toString()
-        val correo = txtEmail.text.toString()
-        val contraseña = txtPassword.text.toString()
-        val confirmacionContraseña = txtConfirmPassword.text.toString()
+    private fun validarDatos() {
+        val nombre = binding.nameET.text.toString()
+        val correo = binding.emailET.text.toString()
+        val contraseña = binding.passwordET.text.toString()
+        val confirmacionContraseña = binding.cPasswordET.text.toString()
         val patternName = Pattern.compile("^[a-zA-Z ]+\$")
         val patternEmail = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
 
+        var isValid = true
+
         if (nombre.isBlank()) {
-            Toast.makeText(this, "Por favor, ingresa tu nombre", Toast.LENGTH_SHORT).show()
-            return
+            binding.nameET.error = "Por favor, ingresa tu nombre"
+            isValid = false
+        } else if (!patternName.matcher(nombre).matches()) {
+            binding.nameET.error = "Por favor, ingresa un nombre válido (solo letras)"
+            isValid = false
+        } else {
+            binding.nameET.error = null
         }
 
         if (correo.isBlank()) {
-            Toast.makeText(this, "Por favor, ingresa tu correo electrónico", Toast.LENGTH_SHORT).show()
-            return
+            binding.emailET.error = "Por favor, ingresa tu correo electrónico"
+            isValid = false
+        } else if (!patternEmail.matcher(correo).matches()) {
+            binding.emailET.error = "Por favor, ingresa un correo electrónico válido"
+            isValid = false
+        } else {
+            binding.emailET.error = null
         }
 
         if (contraseña.isBlank()) {
-            Toast.makeText(this, "Por favor, ingresa tu contraseña", Toast.LENGTH_SHORT).show()
-            return
+            binding.passwordET.error = "Por favor, ingresa tu contraseña"
+            isValid = false
+        } else if (!(contraseña.length in 8..16)) {
+            binding.passwordET.error = "La contraseña debe tener entre 8 y 16 caracteres"
+            isValid = false
+        } else {
+            binding.passwordET.error = null
         }
 
         if (confirmacionContraseña.isBlank()) {
-            Toast.makeText(this, "Por favor, confirma tu contraseña", Toast.LENGTH_SHORT).show()
-            return
+            binding.cPasswordET.error = "Por favor, confirma tu contraseña"
+            isValid = false
+        } else if (contraseña != confirmacionContraseña) {
+            binding.cPasswordET.error = "La contraseña y la confirmación de contraseña no coinciden"
+            isValid = false
+        } else {
+            binding.cPasswordET.error = null
         }
 
-        if (!patternName.matcher(nombre).matches()) {
-            Toast.makeText(this, "Por favor, ingresa un nombre válido (solo letras)", Toast.LENGTH_SHORT).show()
-            return
+        if (isValid) {
+            registrarse()
         }
-
-        if (!(contraseña.length in 8..16)) {
-            Toast.makeText(this, "La contraseña debe tener entre 8 y 16 caracteres", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (contraseña != confirmacionContraseña) {
-            Toast.makeText(this, "La contraseña y la confirmación de contraseña no coinciden", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (!patternEmail.matcher(correo).matches()) {
-            Toast.makeText(this, "Por favor, ingresa un correo electrónico válido", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        Toast.makeText(this, "Su registro ha sido exitoso", Toast.LENGTH_LONG).show()
     }
 
     fun togglePasswordVisibility(view: View) {
-        toggleVisibility(txtPassword, imageViewPasswordVisibility)
+        toggleVisibility(binding.passwordET, binding.passwordIcon)
     }
 
     fun toggleConfirmPasswordVisibility(view: View) {
-        toggleVisibility(txtConfirmPassword, imageViewConfirmPasswordVisibility)
+        toggleVisibility(binding.cPasswordET, binding.cPasswordIcon)
     }
 
     private fun toggleVisibility(editText: EditText, imageView: ImageView) {
@@ -122,10 +113,9 @@ class Register : AppCompatActivity() {
     }
 
     private fun registrarse() {
-        val name = txtName.text.toString().trim()
-        val email = txtEmail.text.toString().trim()
-        val password = txtPassword.text.toString().trim()
-        val confPassword = txtConfirmPassword.text.toString().trim()
+        val name = binding.nameET.text.toString().trim()
+        val email = binding.emailET.text.toString().trim()
+        val password = binding.passwordET.text.toString().trim()
 
         val url = "http://192.168.183.117:8000/api/users"
         val body = JSONObject().apply {
@@ -138,7 +128,7 @@ class Register : AppCompatActivity() {
             Request.Method.POST, url, body,
             { response ->
                 Toast.makeText(this, "Felicidades, usuario agregado exitosamente", Toast.LENGTH_LONG).show()
-                mainActivity()  // Mover mainActivity() aquí
+                mainActivity()
             },
             { error ->
                 if (error.networkResponse?.statusCode == 409) {
