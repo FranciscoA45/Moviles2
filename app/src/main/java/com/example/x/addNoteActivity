@@ -1,0 +1,166 @@
+package com.example.foundit
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Spinner
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+
+class addNoteActivity : AppCompatActivity() {
+
+    private lateinit var tituloTarea: EditText
+    private lateinit var descripcionTarea: EditText
+    private lateinit var spinnerCategory: Spinner
+    private lateinit var saveButton: ImageView
+    private lateinit var requestQueue: RequestQueue
+    private var selectedCategoryId: String? = null
+    private var categoriesList: MutableList<JSONObject> = mutableListOf()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_publicaciones)
+
+        tituloTarea = findViewById(R.id.tituloTarea)
+        descripcionTarea = findViewById(R.id.descripcionTarea)
+        spinnerCategory = findViewById(R.id.spinnerCategory)
+        saveButton = findViewById(R.id.saveButton)
+
+        requestQueue = Volley.newRequestQueue(this)
+
+        loadCategories()
+
+        saveButton.setOnClickListener {
+            saveNote()
+        }
+
+        spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val category = categoriesList[position]
+                selectedCategoryId = category.getString("id")
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                selectedCategoryId = null
+            }
+        }
+    }
+
+    private fun loadCategories() {
+        val url = "http://192.168.100.51:8000/api/categories"
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                categoriesList.clear()
+
+                try {
+                    val dataArray = response.getJSONArray("data")
+                    for (i in 0 until dataArray.length()) {
+                        val category = dataArray.getJSONObject(i)
+                        val attributes = category.getJSONObject("attributes")
+                        val name = attributes.getString("name")
+                        val slug = attributes.getString("slug")
+                        val createdAt = attributes.getString("created_at")
+                        val updatedAt = attributes.getString("updated_at")
+
+                        val links = category.getJSONObject("links")
+                        val selfLink = links.getString("self")
+
+                        // Puedes crear una clase de datos personalizada para almacenar la información de la categoría
+                        val categoryInfo = JSONObject()
+                        categoryInfo.put("id", category.getString("id"))
+                        categoryInfo.put("name", name)
+                        categoryInfo.put("slug", slug)
+                        categoryInfo.put("created_at", createdAt)
+                        categoryInfo.put("updated_at", updatedAt)
+                        categoryInfo.put("self_link", selfLink)
+
+                        categoriesList.add(categoryInfo)
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Log.e("API", "Error parsing JSON: ${e.message}")
+                }
+
+                val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoriesList.map { it.getString("name") })
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerCategory.adapter = adapter
+
+                Log.d("API", "Categories loaded successfully: $categoriesList")
+            },
+            Response.ErrorListener { error ->
+                Toast.makeText(this, "Error al cargar categorías: ${error.message}", Toast.LENGTH_SHORT).show()
+                Log.e("API", "Error loading categories", error)
+            }
+        )
+
+        requestQueue.add(jsonObjectRequest)
+    }
+
+    private fun saveNote() {
+        val title = tituloTarea.text.toString().trim()
+        val description = descripcionTarea.text.toString().trim()
+
+        var valid = true
+
+        if (title.isBlank()) {
+            tituloTarea.error = "El título es obligatorio"
+            tituloTarea.setBackgroundResource(R.drawable.error_background)
+            valid = false
+        } else {
+            tituloTarea.setBackgroundResource(R.drawable.error_background) // Asegúrate de tener un borde predeterminado
+        }
+
+        if (description.isBlank()) {
+            descripcionTarea.error = "La descripción es obligatoria"
+            descripcionTarea.setBackgroundResource(R.drawable.error_background)
+            valid = false
+        } else {
+            descripcionTarea.setBackgroundResource(R.drawable.error_background) // Asegúrate de tener un borde predeterminado
+        }
+
+        if (selectedCategoryId == null) {
+            Toast.makeText(this, "Por favor, selecciona una categoría", Toast.LENGTH_SHORT).show()
+            valid = false
+        }
+
+        if (!valid) {
+            return
+        }
+
+        val url = "http://192.168.100.51:8000/api/posts"
+        val body = JSONObject().apply {
+            put("title", title)
+            put("message", description)
+            put("slug", "null") // slug vacío por defecto
+            put("category_id", selectedCategoryId)
+            put("user_id", 1) // Valor por defecto para user_id
+        }
+
+        val request = JsonObjectRequest(
+            Request.Method.POST, url, body,
+            { response ->
+                Toast.makeText(this, "Nota guardada con éxito", Toast.LENGTH_LONG).show()
+                finish()
+            },
+            { error ->
+                Toast.makeText(this, "Error al guardar nota: ${error.message}", Toast.LENGTH_LONG).show()
+                Log.e("API", "Error saving note", error)
+            }
+        )
+
+        requestQueue.add(request)
+    }
+}
