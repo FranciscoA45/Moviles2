@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/fondo_titulo"
+        android:padding="16dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+
+            >
+            <TextView
+
+                android:layout_marginTop="10dp"
+                android:id="@+id/titleTextView"
+                android:layout_width="600dp"
+                android:layout_height="50dp"
+
+                android:text="Nombre del puesto "
+                android:textColor="@color/grey"
+                android:textSize="20dp"
+                android:textStyle="bold"
+
+                />
+
+            <ImageView
+
+                android:id="@+id/optionsButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/baseline_more"
+                />
+            <!-- Separación -->
+            <View
+                android:layout_below="@id/optionsButton"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="16dp" />
+
+
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/Categoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:maxLines="3"
+                android:text="Categoria"
+                android:textColor="@color/grey"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tituloDescripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:maxLines="3"
+                    android:layout_marginTop="4dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/contentTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:maxLines="3"
+                    android:layout_marginTop="4dp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
