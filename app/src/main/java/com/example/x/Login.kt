@@ -30,6 +30,7 @@ class Login : AppCompatActivity() {
         val patternEmail = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
 
         var isValid = true
+        
 
         if (email.isBlank()) {
             binding.emailET.error = "Por favor, ingresa tu correo electrónico"
