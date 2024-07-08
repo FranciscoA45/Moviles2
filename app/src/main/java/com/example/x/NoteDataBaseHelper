@@ -1,0 +1,82 @@
+package com.example.foundit
+
+import android.content.Context
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
+import org.json.JSONObject
+import android.util.Log
+import com.android.volley.DefaultRetryPolicy
+import org.json.JSONException
+
+
+class NoteDataBaseHelper(context: Context) {
+    private val requestQueue: RequestQueue = Volley.newRequestQueue(context)
+
+    fun getAllNotes(response: JSONObject): List<Note> {
+        val notesList = ArrayList<Note>()
+
+        try {
+            val jsonArray = response.getJSONArray("data") // asumiendo que la respuesta JSON tiene una clave "data"
+
+            for (i in 0 until jsonArray.length()) {
+                val noteObject = jsonArray.getJSONObject(i)
+                val attributes = noteObject.getJSONObject("attributes")
+                val relationships = noteObject.getJSONObject("relationships")
+                val category = relationships.getJSONObject("category").getJSONObject("attributes")
+
+                val note = Note(
+                    noteObject.getInt("id"),
+                    attributes.getString("title"),
+                    attributes.getString("message"),
+                    attributes.optString("slug"), // slug es nullable
+                    0, // Aquí se puede agregar el user_id si está disponible en la respuesta JSON
+                    relationships.getJSONObject("category").getInt("id"),
+                    category.getString("name")
+                )
+                notesList.add(note)
+            }
+        } catch (e: JSONException) {
+            Log.e("Error", "Error al parsear la respuesta JSON", e)
+            // manejar la excepción JSONException
+        }
+
+        return notesList
+    }
+
+
+    fun updateNote(note: Note) {
+        val url = "http://192.168.1.72:8000/api/posts/${note.id}" // Reemplace con su URL de API
+        val json = JSONObject()
+        json.put("title", note.title)
+        json.put("message", note.message)
+        json.put("slug", note.slug)
+        json.put("user_id", note.userId)
+        json.put("category_id", note.categoryId)
+
+        val request = JsonObjectRequest(Request.Method.PUT, url, json, Response.Listener { response ->
+            // Manejar respuesta
+        }, Response.ErrorListener { error ->
+            // Manejar error
+        })
+
+        requestQueue.add(request)
+    }
+
+    fun deleteNote(noteId: Int) {
+        val url = "http://192.168.1.72:8000/api/posts/${noteId}" // Reemplace con su URL de API
+
+        val request = JsonObjectRequest(Request.Method.DELETE, url, null, Response.Listener { response ->
+            // Manejar respuesta
+        }, Response.ErrorListener { error ->
+            // Manejar error
+        })
+
+        requestQueue.add(request)
+    }
+
+}
