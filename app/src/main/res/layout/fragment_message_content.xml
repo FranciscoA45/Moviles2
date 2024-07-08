@@ -5,13 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    tools:context=".MessageFragment">
+    tools:context=".MessageFragment"
+    android:background="@drawable/btn_secundary2"
+    >
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <LinearLayout
+
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,13 +26,17 @@
 
             <!-- Profile Icon -->
             <ImageView
-                android:id="@+id/baseline_profile"
-                style="@style/StyleImageP" />
+                android:src="@drawable/baseline_person2_24"
+                style="@style/StyleImageP"
+                android:layout_marginTop="5dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="-10dp"
+                android:layout_width="65dp"/>
 
             <!-- Main Search Area -->
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="111dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -37,20 +46,29 @@
                     <!-- Search Icon -->
                     <ImageView
                         android:id="@+id/search_icon"
+                        android:src="@drawable/baseline_search_2_24"
                         style="@style/StyleImageB" />
 
                     <EditText
                         android:hint="Buscar"
+                        android:layout_marginTop="-13dp"
                         style="@style/StyleEditBuscar"
                         android:layout_toEndOf="@id/search_icon"
                         android:paddingStart="40dp" />
                 </RelativeLayout>
             </LinearLayout>
 
+
+
             <!-- Settings Icon -->
             <ImageView
                 android:id="@+id/settings_icon"
-                style="@style/StyleImageC" />
+                android:src="@drawable/baseline_settings_24"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="-5dp"
+                android:layout_width="45dp"/>
+
         </LinearLayout>
 
 
@@ -64,7 +82,7 @@
             android:layout_marginEnd="20dp"
             android:gravity="center"
             android:text="¡Te damos la bienvenida a tu bandeja de entrada!"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -77,24 +95,12 @@
             android:layout_marginEnd="20dp"
             android:gravity="center"
             android:text="Envía una frase, comparte posts y mucho
-más con las conversaciones privadas entre tú y otras personas en X."
-            android:textColor="@android:color/white"
+más con las conversaciones privadas entre tú y otras personas en FoundIt!."
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
-        <Button
 
-            android:layout_marginStart="120dp"
-            android:background="@drawable/btn_primary"
-            android:id="@+id/subscribeButton"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/white"
-            android:text="Escribe un mensaje"
-            android:gravity="center"
-            android:layout_marginTop="520dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+
 
 
         <!-- Botón circular en la esquina inferior derecha -->
