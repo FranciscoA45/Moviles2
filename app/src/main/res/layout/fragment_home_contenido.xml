@@ -6,220 +6,160 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:background="@drawable/btn_secundary3">
 
     <!-- Usamos un RelativeLayout para contener los elementos -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="30dp"
+            android:background="@color/black"/>
+
+
         <!-- Primer RelativeLayout con los iconos -->
         <RelativeLayout
             android:id="@+id/iconos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:background="@color/white"
+            android:layout_height="80dp">
+
 
             <ImageView
                 android:id="@+id/profileIv"
-                android:layout_width="20dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/baseline_profile_2_24" />
 
             <ImageView
                 android:id="@+id/centerIcon"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
+                android:background="@drawable/btn_secundary2"
                 android:src="@drawable/logom" />
 
             <ImageView
                 android:id="@+id/rightIcon"
-                android:layout_width="20dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="25dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginStart="35dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/baseline_build_24" />
+                android:src="@drawable/baseline_settings" />
         </RelativeLayout>
 
         <!-- Segundo RelativeLayout con los textos -->
         <RelativeLayout
             android:id="@+id/textos"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+
             android:layout_below="@id/iconos">
 
-            <TextView
-                android:id="@+id/textParaTi"
-                android:layout_width="wrap_content"
+            <!-- TabLayout justo debajo del RelativeLayout de los íconos -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="15dp"
-                android:text="Para ti"
-                android:layout_marginStart="80dp"
 
-                android:textStyle="normal" />
+                app:tabIndicatorColor="#FFFFFF"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="#FFFFFF"
+                app:tabTextColor="#718096">
 
-            <TextView
-                android:id="@+id/textMiCurriculum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="80dp"
-                android:layout_marginTop="15dp"
-                android:text="Mi curriculum"
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Para ti" />
 
-                android:textStyle="normal" />
-            <View
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/textMiCurriculum"
-                android:layout_width="wrap_content"
-                android:background="@color/black"
-                android:layout_height="5dp"
-                />
+
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Novedades" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+
+
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textos"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="0dp"
             >
 
             <!-- Elemento de la lista -->
             <LinearLayout
+                android:id="@+id/publicacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:orientation="vertical"
-                android:padding="16dp">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre del puesto solicitado"
-                    android:background="@drawable/fondo_titulo"
-
-                    android:textStyle="bold"
-                    android:textSize="16sp"/>
+                android:padding="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="0dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nombre de la empresa"
-                            android:textSize="16sp"
-
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ubicación"
-
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Habilidades"
-
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="• "
-                            android:textColor="@color/black"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="• "
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="• "
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sueldo"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="0dp"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/notesReclyclerView"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/fondo_obj" />
+                        android:layout_marginTop="1dp"
+                        android:padding="16dp"
+                        />
+
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center">
 
-                    <Button
 
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Postularme"
-                        android:textSize="16sp"
-                        android:background="@drawable/fondo_titulo"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="16dp"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/baseline_bookmark_24"
-                        android:background="@drawable/fondo_titulo"
-                        android:padding="8dp"
-                       />
-
-                </LinearLayout>
-
-                <!-- Línea de separación -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/black"
-                    android:layout_marginTop="16dp" />
 
             </LinearLayout>
 
+
         </RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addPublicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|end"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="@android:color/holo_blue_dark"
+            app:srcCompat="@drawable/baseline_add_comment_24"
+            app:tint="@android:color/white" />
 
 
     </RelativeLayout>
+
 
 
     <com.google.android.material.navigation.NavigationView
