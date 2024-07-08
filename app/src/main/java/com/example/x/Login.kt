@@ -8,69 +8,58 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import com.example.x.MainActivity
-import com.example.x.Recuperacion
+import com.example.x.databinding.ActivityLoginBinding
 import java.util.regex.Pattern
 
 class Login : AppCompatActivity() {
-    private lateinit var editTextEmail: EditText
-    private lateinit var editTextPassword: EditText
-    private lateinit var imageViewPasswordVisibility: ImageView
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        editTextEmail = findViewById(R.id.emailET)
-        editTextPassword = findViewById(R.id.passwordET)
-        imageViewPasswordVisibility = findViewById(R.id.passwordIcon)
+        binding.btnIniciar.setOnClickListener { validarDatos() }
+        binding.passwordIcon.setOnClickListener { togglePasswordVisibility() }
+      //  binding.textViewForgotPassword.setOnClickListener { onForgotPasswordClicked() }
     }
 
-    fun RegisterInClicked(view: View) {
-        startActivity(Intent(this, Register::class.java))
-    }
-
-    fun validarDatos(view: View) {
-        val email = editTextEmail.text.toString()
-        val contraseña = editTextPassword.text.toString()
+    private fun validarDatos() {
+        val email = binding.emailET.text.toString()
+        val contraseña = binding.passwordET.text.toString()
         val patternEmail = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
 
+        var isValid = true
+
         if (email.isBlank()) {
-            Toast.makeText(this, "Por favor, ingresa tu correo electrónico", Toast.LENGTH_SHORT).show()
-            return
+            binding.emailET.error = "Por favor, ingresa tu correo electrónico"
+            isValid = false
+        } else if (!patternEmail.matcher(email).matches()) {
+            binding.emailET.error = "Por favor, ingresa un correo electrónico válido"
+            isValid = false
+        } else {
+            binding.emailET.error = null
         }
 
         if (contraseña.isBlank()) {
-            Toast.makeText(this, "Por favor, ingresa tu contraseña", Toast.LENGTH_SHORT).show()
-            return
+            binding.passwordET.error = "Por favor, ingresa tu contraseña"
+            isValid = false
+        } else if (!(contraseña.length in 8..16)) {
+            binding.passwordET.error = "La contraseña debe tener entre 8 y 16 caracteres"
+            isValid = false
+        } else {
+            binding.passwordET.error = null
         }
 
-        if (!(contraseña.length in 8..16)) {
-            Toast.makeText(this, "La contraseña debe tener entre 8 y 16 caracteres", Toast.LENGTH_SHORT).show()
-            return
+        if (isValid) {
+            Toast.makeText(this, "Su login ha sido exitoso", Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, MainActivity::class.java))
         }
-
-        if (!patternEmail.matcher(email).matches()) {
-            Toast.makeText(this, "Por favor, ingresa un correo electrónico válido", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        Toast.makeText(this, "Su login ha sido exitoso", Toast.LENGTH_LONG).show()
-
-        // Navegar a MainActivity después de un login exitoso
-        startActivity(Intent(this, MainActivity::class.java))
     }
 
-    fun togglePasswordVisibility(view: View) {
-        toggleVisibility(editTextPassword, imageViewPasswordVisibility)
-    }
-
-    fun onForgotPasswordClicked(view: View) {
-        // Llevar al activity de recuperación de contraseña
-        startActivity(Intent(this, Recuperacion::class.java))
-    }
-
-    private fun toggleVisibility(editText: EditText, imageView: ImageView) {
+    private fun togglePasswordVisibility() {
+        val editText = binding.passwordET
+        val imageView = binding.passwordIcon
         if (editText.inputType == (InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
             editText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             imageView.setImageResource(R.drawable.visible_password)
@@ -78,7 +67,14 @@ class Login : AppCompatActivity() {
             editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             imageView.setImageResource(R.drawable.hide_password)
         }
-        // Mueve el cursor al final del texto después de cambiar el tipo de entrada para mantener la posición del cursor.
         editText.setSelection(editText.text.length)
+    }
+
+    private fun onForgotPasswordClicked() {
+        startActivity(Intent(this, Recuperacion::class.java))
+    }
+
+    fun RegisterInClicked(view: View) {
+        startActivity(Intent(this, Register::class.java))
     }
 }
