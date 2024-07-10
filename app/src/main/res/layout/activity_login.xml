@@ -80,20 +80,16 @@
             android:src="@drawable/hide_password"
             android:onClick="togglePasswordVisibility"/>
     </RelativeLayout>
-    <RelativeLayout
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¿Has olvidado tu contraseña?"
-            android:layout_gravity="end"
-            android:textColor="@color/blue"
-            android:textSize="12sp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:onClick="onForgotPasswordClicked" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:text="¿Has olvidado tu contraseña?"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="15sp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentEnd="true"
+        android:onClick="onForgotPasswordClicked"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnIniciar"
@@ -103,11 +99,12 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="40dp"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
         android:background="@drawable/btn_primary"
-        android:text="Iniciar sesion"
-        android:onClick="validarDatos"
-        />
+        android:text="Iniciar sesión"
+        android:onClick="validarDatos"/>
 
     <LinearLayout
         android:layout_width="match_parent"
