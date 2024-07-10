@@ -6,20 +6,24 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/btn_secundary2"
     tools:context=".Register">
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="285dp"
-        android:layout_height="124dp"
+        android:layout_width="115dp"
+        android:layout_height="105dp"
+
+        android:background="@drawable/btn_secundary2"
         app:srcCompat="@drawable/logom" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text="Register"
-
-        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:textSize="28sp"
         android:textStyle="bold" />
 
     <TextView
@@ -27,15 +31,16 @@
         android:layout_height="wrap_content"
         android:text="Crea una nueva cuenta"
         android:textStyle="normal"
-        android:textSize="13sp"
-
+        android:textSize="15sp"
+        android:textColor="@color/black"
         android:layout_marginTop="2dp"/>
 
     <EditText
         android:id="@+id/nameET"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:hint="Nombre"
+        android:text="Nombre"
+        android:textColor="@color/grey2"
         android:maxLines="1"
         android:inputType="text"
         android:textSize="16sp"
@@ -44,13 +49,14 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/background_edit_text"/>
+        android:background="@drawable/btn_secundary10"/>
 
     <EditText
         android:id="@+id/emailET"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:hint="Email"
+        android:text="Email"
+        android:textColor="@color/grey2"
         android:maxLines="1"
         android:inputType="textEmailAddress"
         android:textSize="16sp"
@@ -59,40 +65,61 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/background_edit_text" />
+        android:background="@drawable/btn_secundary10" />
 
     <RelativeLayout
-
+        android:background="@drawable/btn_secundary6"
         style="@style/styleRelative">
 
         <EditText
             android:id="@+id/passwordET"
-            android:hint="password"
+            android:layout_width="330dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="1dp"
             android:layout_toStartOf="@+id/passwordIcon"
-            style="@style/StyleEditText"
-            app:errorEnabled="true"
-
-            />
+            android:background="@drawable/btn_secundary10"
+            android:textColor="@color/grey2"
+            android:text="    Password"
+            android:textSize="15dp"
+            app:errorEnabled="true" />
 
         <ImageView
             android:id="@+id/passwordIcon"
             style="@style/StyleImage"
+            android:background="@drawable/btn_secundary6"
+
             android:onClick="togglePasswordVisibility"
-            />
+            android:layout_width="40dp"
+            android:src="@drawable/hide_password" />
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:background="@drawable/btn_secundary6"
         style="@style/styleRelative">
+
+
         <EditText
             android:id="@+id/cPasswordET"
-            android:hint="confirm password"
+            android:layout_width="330dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="1dp"
             android:layout_toStartOf="@+id/cPasswordIcon"
-            style="@style/StyleEditText" />
+            android:background="@drawable/btn_secundary10"
+            android:textColor="@color/grey2"
+            android:text="    Password"
+            android:textSize="15dp"
+            app:errorEnabled="true" />
+
+        />
         <ImageView
             android:id="@+id/cPasswordIcon"
+            android:background="@drawable/btn_secundary6"
             style="@style/StyleImage"
             android:onClick="toggleConfirmPasswordVisibility"
+            android:src="@drawable/hide_password"
             />
     </RelativeLayout>
 
@@ -100,13 +127,15 @@
         android:id="@+id/btnRegistrar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="40dp"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:background="@drawable/btn_primary"
-        android:text="Resgistrarse"
+        android:text="Registrarse"
         android:onClick="validarDatos"
         />
 
@@ -157,6 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¿Ya tienes una cuenta? "
+            android:textColor="@color/black"
             android:textSize="16sp"/>
 
         <TextView
@@ -172,4 +202,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
 
