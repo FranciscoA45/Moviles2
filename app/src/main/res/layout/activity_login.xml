@@ -38,37 +38,51 @@
         android:id="@+id/emailET"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:hint="Correo electronico"
+        android:text="Correo electrónico"
+        android:textColor="@color/grey2"
         android:maxLines="1"
         android:inputType="textEmailAddress"
         android:textSize="16sp"
         android:padding="19dp"
-        android:paddingEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/background_edit_text" />
+        android:background="@drawable/btn_secundary10"/>
+
 
     <RelativeLayout
-        style="@style/styleRelative">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_secundary6">
 
         <EditText
             android:id="@+id/passwordET"
-            android:hint="password"
+            android:layout_width="337dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="10dp"
             android:layout_toStartOf="@+id/passwordIcon"
-            style="@style/StyleEditText"/>
+            android:background="@drawable/btn_secundary10"
+            android:text="Contraseña"
+            android:padding="19dp"
+            android:textSize="16sp"
+            android:textColor="@color/grey2" />
 
         <ImageView
             android:id="@+id/passwordIcon"
-            style="@style/StyleImage"
-            android:onClick="togglePasswordVisibility"
-            />
-
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/hide_password"
+            android:onClick="togglePasswordVisibility"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       >
+        android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,9 +94,6 @@
             android:layout_marginTop="20dp"
             android:onClick="onForgotPasswordClicked" />
     </RelativeLayout>
-
-
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnIniciar"
