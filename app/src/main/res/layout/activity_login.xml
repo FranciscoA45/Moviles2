@@ -80,6 +80,7 @@
             android:src="@drawable/hide_password"
             android:onClick="togglePasswordVisibility"/>
     </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,19 +119,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¿No tienes cuenta? "
-
+            android:textColor="@android:color/black"
             android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/textViewSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create new account"
+            android:text="Crea una nueva cuenta"
             android:textStyle="bold"
-            android:textColor="@color/blue"
+            android:textColor="@android:color/holo_blue_light"
             android:autoLink="web"
             android:onClick="RegisterInClicked"/>
-
     </LinearLayout>
-
 </LinearLayout>
